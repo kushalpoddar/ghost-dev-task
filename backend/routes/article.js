@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getAllArticles, getSingleArticle, getSingleArticleCommentsAndUpvotes, addComment} = require('../controller/article')
+const {getAllArticles, getSingleArticle, getSingleArticleCommentsAndUpvotes, addComment, addCommentUpvote} = require('../controller/article')
 
 //Get all articles
 router.get('/', async(req, res) => {
@@ -22,13 +22,21 @@ router.get('/:id/comment', async(req, res) => {
     return res.send(article)
 })
 
+//Upvote a comment
+router.post('/comment/upvote', async(req, res) => {
+    const comment_id = req.body.comment_id
+    const user_id = 1 // We will hardcode user = 1
+    const upvote_new = await addCommentUpvote({ comment_id, user_id })
+	return res.send(upvote_new)
+})
+
 //Insert a comment in an article
 router.post('/comment', async(req, res) => {
     const article_id = req.body.article_id
-    const user_id = req.body.user_id
+    const user_id = 1 // We will hardcode user = 1
     const comment = req.body.comment
-    const article = await addComment({ article_id, user_id, comment })
-	return res.send(article)
+    const comment_new = await addComment({ article_id, user_id, comment })
+	return res.send(comment_new)
 })
 
 module.exports = router
