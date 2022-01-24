@@ -1,0 +1,25 @@
+version: '3'
+services:
+ # server configuration   
+  web:
+    container_name: docker-ghost-backend
+    restart: always
+    build: ./backend
+    image: ghost-main
+    ports:
+      - "6227:6227"
+    depends_on:
+      - upskool_mongo
+
+ # Mysql configuration
+  docker-ghost-mysql:
+    image: mysql:5.7
+    container_name: docker-ghost-mysql
+    restart: always
+    environment:
+        - MYSQL_DATABASE=ghost-dev
+        - MYSQL_ROOT_PASSWORD=ghost-dev
+    ports:
+        - "3320:3306"
+    volumes:
+        - ./dbdata:/var/lib/mysql

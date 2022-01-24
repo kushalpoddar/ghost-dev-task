@@ -1,0 +1,13 @@
+{
+    "type" : "D",
+    "db" : {
+        "host_dev" : "localhost",
+        "user_dev" : "root",
+        "password_dev" : "",
+        "db_dev" : "ghost-dev",
+        "host_prod" : "docker-ghost-mysql",
+        "user_prod" : "root",
+        "password_prod" : "ghost-dev",
+        "db_prod" : "ghost-dev"
+    }
+}
