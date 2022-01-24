@@ -8,6 +8,8 @@
         "host_prod" : "docker-ghost-mysql",
         "user_prod" : "root",
         "password_prod" : "ghost-dev",
-        "db_prod" : "ghost-dev"
+        "db_prod" : "ghost-dev",
+        "port_prod" : "3320"
+
     }
 }
