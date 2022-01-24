@@ -9,7 +9,7 @@
         "user_prod" : "root",
         "password_prod" : "ghost-dev",
         "db_prod" : "ghost-dev",
-        "port_prod" : "3320"
+        "port_prod" : "3306"
 
     }
 }
