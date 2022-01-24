@@ -35,7 +35,8 @@ router.post('/comment', async(req, res) => {
     const article_id = req.body.article_id
     const user_id = 1 // We will hardcode user = 1
     const comment = req.body.comment
-    const comment_new = await addComment({ article_id, user_id, comment })
+    const parent = req.body.parent
+    const comment_new = await addComment({ article_id, user_id, comment, parent })
 	return res.send(comment_new)
 })
 
