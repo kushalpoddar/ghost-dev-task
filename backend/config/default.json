@@ -1,5 +1,5 @@
 {
-    "type" : "D",
+    "type" : "P",
     "db" : {
         "host_dev" : "localhost",
         "user_dev" : "root",
