@@ -9,7 +9,7 @@ services:
     ports:
       - "6227:6227"
     depends_on:
-      - upskool_mongo
+      - docker-ghost-mysql
 
  # Mysql configuration
   docker-ghost-mysql:
