@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Comment from '../../components/comment'
 import NewComment from '../../components/new_comment'
 import axios from 'axios'
-import {BASE_URL} from "../../assets/js/config.js"
+import {BASE_URL, SOCKET_URL} from "../../assets/js/config.js"
 import "../../assets/css/style.css"
 import io from 'socket.io-client';
 
@@ -14,7 +14,7 @@ const HomePage = () => {
     axios.get(`${BASE_URL}article/1/comment`).then(res => {
       setComments(res.data)
     })
-    const newSocket = io(`http://localhost:6227`);
+    const newSocket = io(SOCKET_URL);
     
     setSocket(newSocket);
     return () => newSocket.close();
