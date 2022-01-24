@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import CommentList from './comment_list'
 import NewComment from './new_comment'
@@ -8,9 +8,19 @@ import dayjs from 'dayjs'
 const relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
-const Comment = ({single_comment, show_reply}) => {
+const Comment = ({single_comment, show_reply, socket}) => {
     const [comment, setComment] = useState(single_comment)
     const [isReplying, setIsReplying] = useState(false)
+
+    useEffect(() => {
+        if(socket){
+        socket.on('upvote-updated', function(data){
+            if(data.comment_id === comment.id){
+                setComment({ ...comment, upvote_count : data.upvote_count })
+            }
+        })
+        }
+    }, [socket, comment])
     
     const timeDifference = (time_stamp) => {
         return dayjs(time_stamp).fromNow()
@@ -18,7 +28,9 @@ const Comment = ({single_comment, show_reply}) => {
 
     const addCommentUpvote = (comment_id) => {
         axios.post(`${BASE_URL}article/comment/upvote`, { comment_id }).then(res => {
-            setComment({...comment, upvote_count : comment.upvote_count + 1})
+            const upvote_count = comment.upvote_count + 1
+            setComment({...comment, upvote_count})
+            socket.emit('notify-upvote-update', {comment_id, upvote_count})
         })
     }
 
@@ -46,7 +58,7 @@ const Comment = ({single_comment, show_reply}) => {
                 </div>
                 { isReplying ? <NewComment addComment={addComment} parent={comment.id} /> : null}
                 { (comment.children && comment.children.length) ? 
-                <CommentList comments={comment.children} /> : null }
+                <CommentList comments={comment.children} socket={socket} /> : null }
                 
             </div>     
         </div>

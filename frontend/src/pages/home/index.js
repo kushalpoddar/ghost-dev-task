@@ -4,15 +4,21 @@ import NewComment from '../../components/new_comment'
 import axios from 'axios'
 import {BASE_URL} from "../../assets/js/config.js"
 import "../../assets/css/style.css"
+import io from 'socket.io-client';
 
 const HomePage = () => {
   const [comments, setComments] = useState([])
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     axios.get(`${BASE_URL}article/1/comment`).then(res => {
       setComments(res.data)
     })
-  }, [])
+    const newSocket = io(`http://localhost:6227`);
+    
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
 
   const addComment = (data) => {
     setComments([data, ...comments])
@@ -29,7 +35,7 @@ const HomePage = () => {
             <div className="row bottom-part">
               
               { comments.map(comment => {
-                return <Comment key={comment.id} single_comment={comment} show_reply={true} /> 
+                return <Comment socket={socket} key={comment.id} single_comment={comment} show_reply={true} /> 
                 }) 
               }
             </div>
