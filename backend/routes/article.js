@@ -19,9 +19,7 @@ router.get('/:id', async(req, res) => {
 router.get('/:id/comment', async(req, res) => {
     const article_id = req.params.id
     const article = await getSingleArticleCommentsAndUpvotes(article_id)
-    const article_new = await addComment({ article_id, user_id : '1', comment : "HEY" })
-    console.log(article_new)
-	return res.send(article)
+    return res.send(article)
 })
 
 //Insert a comment in an article
