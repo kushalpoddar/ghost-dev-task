@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getAllArticles, getSingleArticle} = require('../controller/article')
+const {getAllArticles, getSingleArticle, getSingleArticleCommentsAndUpvotes, addComment} = require('../controller/article')
 
 //Get all articles
 router.get('/', async(req, res) => {
@@ -12,6 +12,24 @@ router.get('/', async(req, res) => {
 router.get('/:id', async(req, res) => {
     const article_id = req.params.id
     const article = await getSingleArticle(article_id)
+	return res.send(article)
+})
+
+//Get all comments of a single article
+router.get('/:id/comment', async(req, res) => {
+    const article_id = req.params.id
+    const article = await getSingleArticleCommentsAndUpvotes(article_id)
+    const article_new = await addComment({ article_id, user_id : '1', comment : "HEY" })
+    console.log(article_new)
+	return res.send(article)
+})
+
+//Insert a comment in an article
+router.post('/comment', async(req, res) => {
+    const article_id = req.body.article_id
+    const user_id = req.body.user_id
+    const comment = req.body.comment
+    const article = await addComment({ article_id, user_id, comment })
 	return res.send(article)
 })
 
