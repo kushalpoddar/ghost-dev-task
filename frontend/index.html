@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<style>
+body{
+    margin: 0
+}
+.page-wrapper{
+    min-width: 100vw;
+    min-height: 100vh;
+    background: #e7e7e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    margin-top: 0;
+}
+.container{
+    width: 60%;
+    background: #fff;
+    padding: 30px 40px;
+}
+.button{
+    font-weight: bold;
+    box-shadow: none;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 18px;
+}
+.input{
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #E5E5E5;
+}
+.avatar{
+    padding: 0 10px 0 0;
+}
+.avatar > img{
+    width: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+.new-comment-group, .comment-group{
+    display: flex;
+}
+.w100{
+    width: 100%;
+}
+.button.is-primary{
+    color: #fff;
+    background: #7E34F6;
+}
+.button.is-white{
+    color: #4B587C;
+    background: #fff!important;
+}
+#new-comment {
+    width: 100%;
+    margin: 0 10px;
+    display: flex;
+}
+#new-comment input{
+    width: 100%;
+}
+#new-comment-button{
+    width: 100px;
+    text-align: center;
+}
+div, p, h1, h2, button, input{
+    font-family: 'Open sans', sans-serif;
+}
+p{
+    margin: 0 0 8px 0;
+}
+.pl-0{ padding-left: 0; }
+.top-part{
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 40px;
+}
+.bottom-part{
+    padding-top: 40px;
+}
+</style>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" />
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <div class="container">
+                <div class="row top-part">
+                    <h2>Discussion</h2>
+                    <div class="new-comment-group">
+                        <div class="avatar">
+                            <img src="https://www.whatsappimages.in/wp-content/uploads/2021/04/Sad-Whatsapp-Dp-Profile-Photo-HD-Download.jpg">
+                        </div>
+                        <div id="new-comment">
+                            <input placeholder="What are your thoughts?" class="input">
+                        </div>
+
+                        <button id="new-comment-button" class="button is-primary">Comment</button>
+                    </div>
+                </div>
+                <div class="row bottom-part">
+                    <div class="comment-group">
+                        <div class="avatar">
+                            <img src="https://www.whatsappimages.in/wp-content/uploads/2021/04/Sad-Whatsapp-Dp-Profile-Photo-HD-Download.jpg">
+                        </div>
+                        <div class="comment">
+                            <p><b>Rob Hope</b></p>
+                            <p>Rob Hop riy0tweweutiuwiuiwuie</p>
+                            <div class="w100">
+                                <button class="button is-white pl-0">
+                                    <i class="mdi mdi-triangle"></i>&nbsp;&nbsp;&nbsp;Upvote
+                                </button>
+                                <button class="button is-white">Reply</button>
+                            </div>
+                        </div>     
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js" integrity="sha512-/Q6t3CASm04EliI1QyIDAA/nDo9R8FQ/BULoUFyN4n/BDdyIxeH7u++Z+eobdmr11gG5D/6nPFyDlnisDwhpYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+BASEURL = 'http://localhost:6227/api/article/'
+function loadComments(){
+    axios.get(`${BASEURL}1/comment`).then(res => {
+        const data = res.data
+        console.log(data)
+    })
+}
+loadComments()
+</script>
