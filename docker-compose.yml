@@ -13,9 +13,10 @@ services:
 
  # Mysql configuration
   docker-ghost-mysql:
-    image: mysql:5.7
+    image: mysql:5.5
     container_name: docker-ghost-mysql
     restart: always
+    command: --sql_mode=''
     environment:
         - MYSQL_DATABASE=ghost-dev
         - MYSQL_ROOT_PASSWORD=ghost-dev
